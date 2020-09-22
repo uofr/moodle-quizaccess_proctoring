@@ -16,7 +16,6 @@
 
 /**
  * Code that is executed before the tables and data are dropped during the plugin uninstallation.
- * Uninstall for the quizaccess_proctoring plugin.
  * 
  * @package    quizaccess_proctoring
  * @copyright  2020 Brain Station 23 <moodle@brainstation-23.net>
