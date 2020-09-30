@@ -1,9 +1,25 @@
 
 var isCameraAllowed = false;
 
-define(['jquery', 'core/ajax', 'core/notification'],
-    function($, Ajax, Notification) {
+define(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notification) {
 
+    $(function() {
+        $('#id_submitbutton').prop("disabled", true);
+        $('#id_proctoring').on('change', function() {
+            if (this.checked && isCameraAllowed) {
+                $('#id_submitbutton').prop("disabled", false);
+            } else {
+                $('#id_submitbutton').prop("disabled", true);
+            }
+        });
+    });
+    /**
+     * Function hideButtons
+     */
+    function hideButtons() {
+        $('.mod_quiz-next-nav').prop("disabled", true);
+        $('.submitbtns').html('<p class="text text-red red">You need to enable web camera before submitting this quiz!</p>');
+    }
     var firstcalldelay = 3000; // 3 seconds after the page load
     var takepicturedelay = 30000; // 30 seconds
 
@@ -28,9 +44,9 @@ define(['jquery', 'core/ajax', 'core/notification'],
             var data = null;
 
             $('#mod_quiz_navblock').append('<div class="card-body p-3"><h3 class="no text-left">Webcam</h3> <br/>'
-             + '<video id="video">Video stream not available.</video><canvas id="canvas" style="display:none;"></canvas>'
-             + '<div class="output" style="display:none;">'
-             + '<img id="photo" alt="The picture will appear in this box."/></div></div>');
+                + '<video id="video">Video stream not available.</video><canvas id="canvas" style="display:none;"></canvas>'
+                + '<div class="output" style="display:none;">'
+                + '<img id="photo" alt="The picture will appear in this box."/></div></div>');
 
             var video = document.getElementById('video');
             var canvas = document.getElementById('canvas');
@@ -257,25 +273,3 @@ define(['jquery', 'core/ajax', 'core/notification'],
         }
     };
 });
-
-import $ from 'jquery';
-$(function() {
-    $('#id_submitbutton').prop("disabled", true);
-
-    $('#id_proctoring').on('change', function() {
-        if (this.checked && isCameraAllowed) {
-            $('#id_submitbutton').prop("disabled", false);
-        } else {
-            $('#id_submitbutton').prop("disabled", true);
-        }
-    });
-
-});
-
-/**
- * Function hideButtons
- */
-function hideButtons() {
-    $('.mod_quiz-next-nav').prop("disabled", true);
-    $('.submitbtns').html('<p class="text text-red red">You need to enable web camera before submitting this quiz!</p>');
-}
